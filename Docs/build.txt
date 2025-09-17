@@ -1,0 +1,511 @@
+##############################################################################################################################
+#      Windows Build with Visual Studio Professional 2022
+##############################################################################################################################
+
+1-1) Microsoft Visual Studio Professional 2022 (64-bit) Version 17.4.4
+
+1-2) wxWidgets
+https://www.wxwidgets.org/downloads/
+Windows Installer -> wxMSW-3.2.1-Setup.exe
+Setup Env: WX_WIDGETS_PATH=C:\wxWidgets-3.2.1
+Open "%WX_WIDGETS_PATH%\build\msw\wx_vc17.sln" in Visual Studio 2022.
+Build all projects in "(Debug/Release)/(x64/Win32)" mode.
+
+1-3) Install CUDA Toolkit 12.0 Update 1
+https://developer.nvidia.com/cuda-downloads
+cuda_12.0.1_528.33_windows.exe
+Setup Env: CUDA_TOOLKIT_PATH=C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.0
+
+Docs:
+https://docs.nvidia.com/cuda/cuda-compiler-driver-nvcc/index.html#gpu-feature-list
+https://docs.nvidia.com/cuda/cuda-compiler-driver-nvcc/index.html#virtual-architecture-feature-list
+https://docs.nvidia.com/cuda/cuda-compiler-driver-nvcc/index.html#options-for-steering-gpu-code-generation
+
+NOTES:
+# If -arch=all is specified, nvcc embeds a compiled code image for all supported architectures (sm_*), and a PTX program for the highest major virtual architecture
+# "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.0\bin\nvcc.exe" --list-gpu-code
+# sm_50
+# sm_52
+# sm_53
+# sm_60
+# sm_61
+# sm_62
+# sm_70
+# sm_72
+# sm_75
+# sm_80
+# sm_86
+# sm_87
+# sm_89
+# sm_90
+# "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.0\bin\nvcc.exe" --list-gpu-arch
+# compute_50
+# compute_52
+# compute_53
+# compute_60
+# compute_61
+# compute_62
+# compute_70
+# compute_72
+# compute_75
+# compute_80
+# compute_86
+# compute_87
+# compute_89
+# compute_90
+
+1-4) OpenCV
+Download from
+https://github.com/opencv/opencv/releases/tag/4.7.0
+https://github.com/opencv/opencv/archive/4.7.0.zip
+opencv-4.7.0.zip
+Extract opencv-4.7.0.zip to C:\opencv-4.7.0
+Docs:
+https://docs.opencv.org/4.7.0/
+https://perso.uclouvain.be/allan.barrea/opencv/cmake_config.html
+https://jamesbowley.co.uk/build-compile-opencv-3-4-in-windows-with-cuda-9-0-and-intel-mkl-tbb/
+https://stackoverflow.com/questions/14172856/compile-with-mt-instead-of-md-using-cmake
+
+CMake 3.14+ required for VS build
+https://cmake.org/download/
+https://github.com/opencv/opencv/wiki/Intel%27s-Deep-Learning-Inference-Engine-backend
+used: cmake-3.25.2-windows-x86_64.msi
+
+Run: C:\Program Files\CMake\bin\cmake-gui.exe
+select source directory: C:/opencv-4.7.0
+select build directory: C:/opencv-4.7.0/builds/(Win32/Win64)
+Enable the Grouped and Advanced checkboxes just below the build directory name.
+Press the “Configure” button.
+Pick Visual Studio 17 2022
+Platform (Win32/x64)
+finish
+!!! * Select BUILD -> BUILD_opencv_world=ON *
+Press again Configure
+Press generate
+Press open project
+Build in Debug and Release mode for Platform Win32 and Win64
++ Build INSTALL project in CMakeTargets folder for Win64
+
+Setup Env:
+OPENCV_BUILD_PATH_X64=C:\opencv-4.7.0\builds\Win64
+OPENCV_BUILD_PATH_X86=C:\opencv-4.7.0\builds\Win32
+OPENCV_LIBS_VER=470
+after build should exist:
+%OPENCV_BUILD_PATH_X64%\install\include
+%OPENCV_BUILD_PATH_X86%\install\include
+%OPENCV_BUILD_PATH_X64%\lib\Release
+%OPENCV_BUILD_PATH_X86%\lib\Release
+
+1-5) FFMPEG
+download and extract:
+https://ffmpeg.org/download.html
+https://github.com/BtbN/FFmpeg-Builds/releases/tag/latest (Latest Auto-Build (2023-01-24 12:34))
+https://github.com/sudo-nautilus/FFmpeg-Builds-Win32/releases/tag/latest (Latest Auto-Build (2023-01-24 12:35)
+Docs:
+https://ffmpeg.org/ffmpeg.html
+https://ffmpeg.org/doxygen/trunk/examples.html
+https://www.ffmpeg.org/doxygen/trunk/hwcontext_8c.html
+
+ffmpeg-n5.1-latest-win64-gpl-shared-5.1.zip
+ffmpeg-n5.1-latest-win32-gpl-shared-5.1.zip
+
+Setup Env:
+FFMPEG_PATH_X64=C:\ffmpeg-n5.1-latest-win64-gpl-shared-5.1
+FFMPEG_PATH_X86=C:\ffmpeg-n5.1-latest-win32-gpl-shared-5.1
+
+1-6) Building VideoSubFinderWXW
+
+Open "Interfaces\VideoSubFinderWXW\VideoSubFinderWXW.sln" in Visual Studio 2022
+build x64/Win32 Release build
+
+# Optional:
+# Intel Parallel Studio XE 2020 Cluster Edition Update 1
+# for "Task Analysis"
+# https://software.intel.com/content/www/us/en/develop/documentation/vtune-help/top/analyze-performance/code-profiling-scenarios/task-analysis.html
+# https://software.intel.com/content/www/us/en/develop/documentation/vtune-help/top/api-support/instrumentation-and-tracing-technology-apis/instrumentation-and-tracing-technology-api-reference/task-api.html
+
+##############################################################################################################################
+#      Windows Build with Intel® oneAPI DPC++/C++ Compiler and Visual Studio Professional 2022
+##############################################################################################################################
+
+2-1) Microsoft Visual Studio Professional 2022 (64-bit) Version 17.4.4
+
+2-2) Intel® oneAPI DPC++/C++ Compiler
+https://www.intel.com/content/www/us/en/developer/tools/oneapi/dpc-compiler.html#gs.ozfudw
+=>
+Intel® oneAPI Base Toolkit
+https://www.intel.com/content/www/us/en/developer/tools/oneapi/base-toolkit.html#gs.ozfvzo
+Windows -> Offline Installer
+w_BaseKit_p_2023.0.0.25940_offline.exe
+
+2-3) wxWidgets
+https://www.wxwidgets.org/downloads/
+Windows Installer -> wxMSW-3.2.1-Setup.exe
+Setup Env: WX_WIDGETS_PATH=C:\wxWidgets-3.2.1-intel
+
+# start "Intel oneAPI command prompt for Intel 64 for Visual Studio 2022"
+cd C:\wxWidgets-3.2.1-intel\build\msw
+# change in config.vc file: CC = icx , CXX = icx , BUILD = release , TARGET_CPU = X64
+nmake /f makefile.vc
+
+# start "Intel oneAPI command prompt for IA32 for Visual Studio 2022"
+cd C:\wxWidgets-3.2.1-intel\build\msw
+# change in config.vc file: CC = icx , CXX = icx , BUILD = release , TARGET_CPU =  # TARGET_CPU should be empty for x86
+nmake /f makefile.vc
+
+2-4) "NOTE: CUDA is not required for build,
+you can build program without CUDA support by specifying -DUSE_CUDA=OFF for cmake"
+
+Install CUDA Toolkit 12.0 Update 1
+https://developer.nvidia.com/cuda-downloads
+cuda_12.0.1_528.33_windows.exe
+Setup Env: CUDA_TOOLKIT_PATH=C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.0
+
+2-5) OpenCV
+Download from
+https://github.com/opencv/opencv/releases/tag/4.7.0
+opencv-4.7.0.zip
+# extract opencv-4.7.0.zip to C:\opencv-4.7.0
+
+Docs:
+https://docs.opencv.org/4.x/db/d05/tutorial_config_reference.html
+https://www.intel.com/content/www/us/en/develop/documentation/oneapi-dpcpp-cpp-compiler-dev-guide-and-reference/top/compiler-setup/use-the-command-line/use-cmake-with-the-compiler.html
+https://www.intel.com/content/www/us/en/developer/articles/technical/enabling-ipp-on-opencv-windows-and-ubuntu.html
+https://github.com/opencv/opencv/issues/11263
+
+Unfortunately build with Intel oneAPI compiler will lead to cmake generation and build errors.
+Tested with: -T "Intel C++ Compiler 2023", -T "Intel(R) oneAPI DPC++ Compiler 2023", CMAKE_(C/CPP)_COMPILER=icx(-cl/cc), dpcpp, -GNinja, -G"NMake Makefiles", -G "Visual Studio 17 2022"
+The main issue:
+-------------------
+-- Performing Test HAVE_CPU_SSE3_SUPPORT (check file: cmake/checks/cpu_sse3.cpp)
+-- Performing Test HAVE_CPU_SSE3_SUPPORT - Failed
+-- SSE3 is not supported by C++ compiler
+-------------------
+
+So building with Microsoft Compiler as described in 1-4) OpenCV build instructions.
+Setup Env:
+OPENCV_BUILD_PATH_X64
+OPENCV_BUILD_PATH_X86
+
+5) FFMPEG
+Same as in 1-5) FFMPEG build instructions.
+Setup Env:
+FFMPEG_PATH_X64
+FFMPEG_PATH_X86
+
+6) Building VideoSubFinderWXW
+
+Docs:
+https://www.intel.com/content/www/us/en/develop/documentation/oneapi-dpcpp-cpp-compiler-dev-guide-and-reference/top/compiler-setup/use-the-command-line/use-cmake-with-the-compiler.html
+
+# start "Intel oneAPI command prompt for Intel 64 for Visual Studio 2022"
+cd %videosubfinder_source_root_dir%\intel_windows_build\release_x64
+# example: cd E:\Public\Programs\VideoSubFinder\src_git\videosubfinder-src\intel_windows_build\release_x64 && E: && set "WX_WIDGETS_PATH=C:\wxWidgets-3.2.1-intel" && set "VERBOSE=1"
+cmake -DCMAKE_C_COMPILER=icx -DCMAKE_CXX_COMPILER=icx -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=install -GNinja ../..
+cmake --build . --target install --config Release -j 16
+
+# start "Intel oneAPI command prompt for IA32 for Visual Studio 2022"
+cd %videosubfinder_source_root_dir%\intel_windows_build\release_x86
+# example: cd E:\Public\Programs\VideoSubFinder\src_git\videosubfinder-src\intel_windows_build\release_x86 && E: && set "WX_WIDGETS_PATH=C:\wxWidgets-3.2.1-intel" && set "VERBOSE=1"
+cmake -DCMAKE_C_COMPILER=icx -DCMAKE_CXX_COMPILER=icx -DCMAKE_BUILD_TYPE=Release -DWIN64=OFF -DCMAKE_INSTALL_PREFIX:PATH=install -GNinja ../..
+cmake --build . --target install --config Release -j 16
+
+##############################################################################################################################
+#      Linux Build (Ubuntu 20.04.5 LTS)
+##############################################################################################################################
+
+Note:
+"Used default GCC version"
+# /usr/bin/gcc --version
+# gcc (Ubuntu 9.4.0-1ubuntu1~20.04.1)
+
+3-1) wxWidgets
+Download from
+https://www.wxwidgets.org/downloads/
+https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.1/wxWidgets-3.2.1.tar.bz2
+Source for Linux, macOS, etc
+wxWidgets-3.2.1.tar.bz2
+
+# extract to ~/wxWidgets-3.2.1
+# cd ~/wxWidgets-3.2.1
+
+Docs:
+https://wiki.wxwidgets.org/Compiling_and_getting_started
+
+Required for build:
+"libgtk-3-dev"
+sudo apt install libgtk-3-dev
+
+Before build it is preferred to fix GDK cursor (but not required):
+~/wxWidgets-3.2.1/src/gtk/cursor.cpp
+replace
+-----------
+        case wxCURSOR_SIZENWSE:
+        case wxCURSOR_SIZENESW:         gdk_cur = GDK_FLEUR; break;
+-----------
+to
+-----------
+		case wxCURSOR_SIZENWSE:         gdk_cur = GDK_BOTTOM_RIGHT_CORNER; break;
+        case wxCURSOR_SIZENESW:         gdk_cur = GDK_BOTTOM_LEFT_CORNER; break;
+-----------
+
+mkdir buildgtk
+cd buildgtk
+../configure --with-gtk
+make -j16
+sudo make install
+sudo ldconfig
+
+### for debug build only:
+## cd buildgtkdebug
+## ../configure --enable-debug --with-gtk
+## make -j16
+## sudo make install
+## sudo ldconfig
+
+### wx-config --cxxflags --libs
+
+3-2) OpenCV
+Required for build:
+"cmake"
+sudo apt  install cmake
+"FFMPEG"
+sudo apt install ffmpeg libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libx264-dev
+"libgtk-3-dev"
+sudo apt install libgtk-3-dev
+
+Download from
+https://github.com/opencv/opencv/archive/4.7.0.zip
+# extract to ~/opencv-4.7.0
+# cd  ~/opencv-4.7.0
+
+Docs:
+https://docs.opencv.org/4.x/d7/d9f/tutorial_linux_install.html
+https://docs.opencv.org/4.x/db/df5/tutorial_linux_gcc_cmake.html
+
+# Create build directory
+mkdir -p build && cd build
+# Configure
+cmake -DCMAKE_BUILD_TYPE=Release -DWITH_GTK=ON -DWITH_FFMPEG=1 ..
+# Build
+cmake --build . --config Release -j 16
+# Check:
+ls bin
+ls lib
+# Install:
+sudo make install
+
+3-3) FFMPEG
+https://ffmpeg.org/download.html
+https://launchpad.net/ubuntu/+source/ffmpeg
+
+sudo apt install libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libavfilter-dev
+
+3-4) "NOTE: CUDA is not required for build,
+you can build program without CUDA support by specifying -DUSE_CUDA=OFF for cmake"
+
+Install CUDA Toolkit 12.0 Update 1
+https://developer.nvidia.com/cuda-downloads
+Linux->x86_64->Ubuntu->20.04->runfile(local) (deb(local) install failed)
+"cuda_12.0.1_525.85.12_linux.run"
+
+# For remove old cuda and nvidia driver or cuda failed installation from deb package
+sudo apt-get --purge remove "*cublas*" "cuda*" "nsight*"
+sudo apt-get --purge remove "*nvidia*"
+sudo apt-get update
+sudo apt-get autoremove
+sudo apt-get autoclean
+sudo apt --fix-broken install
+
+# reboot machine (required for install nvidia driver)
+
+wget https://developer.download.nvidia.com/compute/cuda/12.0.1/local_installers/cuda_12.0.1_525.85.12_linux.run
+sudo sh cuda_12.0.1_525.85.12_linux.run
+# nvidia driver install will fail, additional reboot will be possibly required
+# in this case run again after reboot: sudo sh cuda_12.0.1_525.85.12_linux.run
+
+Final install log:
+--------------------------
+===========
+= Summary =
+===========
+
+Driver:   Installed
+Toolkit:  Installed in /usr/local/cuda-12.0/
+
+Please make sure that
+ -   PATH includes /usr/local/cuda-12.0/bin
+ -   LD_LIBRARY_PATH includes /usr/local/cuda-12.0/lib64, or, add /usr/local/cuda-12.0/lib64 to /etc/ld.so.conf and run ldconfig as root
+
+To uninstall the CUDA Toolkit, run cuda-uninstaller in /usr/local/cuda-12.0/bin
+To uninstall the NVIDIA Driver, run nvidia-uninstall
+Logfile is /var/log/cuda-installer.log
+--------------------------
+
+3-5) Building VideoSubFinderWXW
+
+# You can use Visual Studio Code with installed cmake and c++ extensions
+# In my case i build with its option: gcc (Ubuntu 9.4.0-1ubuntu1~20.04.1)
+
+Required for build:
+"libtbb-dev"
+sudo apt install libtbb-dev
+
+cd $videosubfinder_source_root_dir
+mkdir -p linux_build
+cd linux_build
+
+# for build with CUDA support in terminal:
+cd $videosubfinder_source_root_dir/linux_build
+CUDA_TOOLKIT_PATH=/usr/local/cuda-12.0 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CUDA_TOOLKIT_PATH/lib64:$CUDA_TOOLKIT_PATH/extras/CUPTI/lib64 PATH=$PATH:$CUDA_TOOLKIT_PATH/bin cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=install ..
+cmake --build . --target install --config Release -j 16
+
+# for build without CUDA support in terminal:
+cd $videosubfinder_source_root_dir/linux_build
+cmake -DCMAKE_BUILD_TYPE=Release -DUSE_CUDA=OFF -DCMAKE_INSTALL_PREFIX:PATH=install ..
+cmake --build . --target install --config Release -j 16
+
+# for build with CUDA support in Visual Studio Code :
+cd $videosubfinder_source_root_dir
+CUDA_TOOLKIT_PATH=/usr/local/cuda-12.0 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CUDA_TOOLKIT_PATH/lib64:$CUDA_TOOLKIT_PATH/extras/CUPTI/lib64 PATH=$PATH:$CUDA_TOOLKIT_PATH/bin code .
+# Select compiler in the bottom: GCC 9.4.0
+# Select CMake target in the bottom: [Release]
+# Press "Build" in the bottom
+# You can also set in /.vscode/settings.json
+# "cmake.configureArgs" : ["-DCMAKE_INSTALL_PREFIX:PATH=install"],
+# and build [install] target
+# result build will be located in /Release/install/VideoSubFinder
+
+##############################################################################################################################
+#      Linux Build (Arch Linux / EndeavourOS Cassini_Nova-03-2023)
+##############################################################################################################################
+
+Note:
+"Used default GCC version"
+/usr/bin/gcc
+gcc (GCC) 12.2.1 20230201
+
+3-1) wxWidgets
+Download from
+https://www.wxwidgets.org/downloads/
+https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.1/wxWidgets-3.2.1.tar.bz2
+Source for Linux, macOS, etc
+wxWidgets-3.2.1.tar.bz2
+
+# extract to ~/wxWidgets-3.2.1
+# cd ~/wxWidgets-3.2.1
+
+Docs:
+https://wiki.wxwidgets.org/Compiling_and_getting_started
+
+Required for build:
+"gtk3"
+sudo pacman -S gtk3
+"base-devel"
+sudo pacman -S base-devel
+
+Before build it is preferred to fix GDK cursor (but not required):
+~/wxWidgets-3.2.1/src/gtk/cursor.cpp
+replace
+-----------
+        case wxCURSOR_SIZENWSE:
+        case wxCURSOR_SIZENESW:         gdk_cur = GDK_FLEUR; break;
+-----------
+to
+-----------
+		case wxCURSOR_SIZENWSE:         gdk_cur = GDK_BOTTOM_RIGHT_CORNER; break;
+        case wxCURSOR_SIZENESW:         gdk_cur = GDK_BOTTOM_LEFT_CORNER; break;
+-----------
+
+mkdir buildgtk
+cd buildgtk
+../configure --with-gtk
+make -j16
+sudo make install
+sudo ldconfig
+
+### for debug build only:
+## cd buildgtkdebug
+## ../configure --enable-debug --with-gtk
+## make -j16
+## sudo make install
+## sudo ldconfig
+
+### wx-config --cxxflags --libs
+
+3-2) OpenCV
+Required for build:
+"cmake"
+pacman -S cmake
+"FFMPEG" - already installed
+pacman -Ss ffmpeg
+## extra/ffmpeg 2:6.0-3 [installed]
+##     Complete solution to record, convert and stream audio and video
+pacman -Ss libx264
+## extra/x264 3:0.164.r3095.baee400-4 [installed]
+##     Open Source H264/AVC video encoder
+"gtk3"
+sudo pacman -S gtk3
+"base-devel"
+sudo pacman -S base-devel
+
+Download from
+https://github.com/opencv/opencv/archive/4.7.0.zip
+# extract to ~/opencv-4.7.0
+# cd  ~/opencv-4.7.0
+
+Docs:
+https://docs.opencv.org/4.x/d7/d9f/tutorial_linux_install.html
+https://docs.opencv.org/4.x/db/df5/tutorial_linux_gcc_cmake.html
+
+# Create build directory
+mkdir -p build && cd build
+# Configure
+cmake -DCMAKE_BUILD_TYPE=Release -DWITH_GTK=ON -DWITH_FFMPEG=1 ..
+# Build
+cmake --build . --config Release -j 16
+# Check:
+ls bin
+ls lib
+# Install:
+sudo make install
+
+3-3) FFMPEG - already installed
+https://ffmpeg.org/download.html
+https://launchpad.net/ubuntu/+source/ffmpeg
+
+pacman -Ss ffmpeg
+## extra/ffmpeg 2:6.0-3 [installed]
+##     Complete solution to record, convert and stream audio and video
+pacman -Ss libx264
+## extra/x264 3:0.164.r3095.baee400-4 [installed]
+##     Open Source H264/AVC video encoder
+
+3-4) "NOTE: CUDA is not required for build,
+you can build program without CUDA support by specifying -DUSE_CUDA=OFF for cmake"
+
+Install CUDA Toolkit
+https://archlinux.org/packages/community/x86_64/cuda/
+"cuda 12.1.0-1"
+
+sudo pacman -S cuda
+
+3-5) Building VideoSubFinderWXW
+
+Required for build:
+"onetbb"
+sudo pacman -S onetbb
+
+cd $videosubfinder_source_root_dir
+mkdir -p linux_build
+cd linux_build
+
+# for build with CUDA support in terminal:
+cd $videosubfinder_source_root_dir/linux_build
+CUDA_TOOLKIT_PATH=/opt/cuda LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CUDA_TOOLKIT_PATH/lib64:$CUDA_TOOLKIT_PATH/extras/CUPTI/lib64 PATH=$PATH:$CUDA_TOOLKIT_PATH/bin cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=install ..
+cmake --build . --target install --config Release -j 16
+
+# for build without CUDA support in terminal:
+cd $videosubfinder_source_root_dir/arch_linux_build
+cmake -DCMAKE_BUILD_TYPE=Release -DUSE_CUDA=OFF -DCMAKE_INSTALL_PREFIX:PATH=install ..
+cmake --build . --target install --config Release -j 16
