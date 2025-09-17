@@ -241,7 +241,7 @@ def create_test_video():
 def main():
     """主函数"""
     parser = argparse.ArgumentParser(description="VideoSubFinder Python实现演示")
-    parser.add_argument("--video", "-v", type=str, help="视频文件路径")
+    parser.add_argument("--video", "-v", type=str, help="视频文件路径", default="2.mp4")
     parser.add_argument("--output", "-o", type=str, default="output", help="输出目录")
     parser.add_argument(
         "--demo",

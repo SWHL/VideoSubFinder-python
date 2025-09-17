@@ -1,4 +1,4 @@
-						    //VideoSubFinderWXW.cpp//                                
+						    //VideoSubFinderWXW.cpp//
 //////////////////////////////////////////////////////////////////////////////////
 //																				//
 // Author:  Simeon Kosnitsky													//
@@ -232,7 +232,7 @@ bool CVideoSubFinderApp::Initialize(int& argc, wxChar **argv)
 	return wxApp::Initialize(argc, argv);
 }
 
-bool CVideoSubFinderApp::OnInit() 
+bool CVideoSubFinderApp::OnInit()
 {
     //if ( !wxApp::OnInit() )
     //    return false;
@@ -241,7 +241,7 @@ bool CVideoSubFinderApp::OnInit()
     // Many version of wxGTK generate spurious diagnostic messages when
     // destroying wxNotebook (or removing pages from it), allow wxWidgets to
     // suppress them.
-    GTKAllowDiagnosticsControl();	
+    GTKAllowDiagnosticsControl();
 #endif // __WXGTK__
 
 	SaveToReportLog("new CMainFrame...\n");
@@ -249,10 +249,10 @@ bool CVideoSubFinderApp::OnInit()
 	SaveToReportLog("CMainFrame was created.\n");
 
 	wxString wxStr;
-	bool blnNeedToExit = false;	
+	bool blnNeedToExit = false;
 
 	SaveToReportLog("m_pMainWnd->Init...\n");
-	m_pMainWnd->Init();	
+	m_pMainWnd->Init();
 	SaveToReportLog("m_pMainWnd->Init was finished.\n");
 
 	long threads;
@@ -265,7 +265,7 @@ bool CVideoSubFinderApp::OnInit()
 	if (g_pParser->Found("nocrthr", &ocr_threads))
 	{
 		g_ocr_threads = ocr_threads;
-	}	
+	}
 
 	if (g_pParser->FoundSwitch("ovocv"))
 	{
@@ -293,7 +293,7 @@ bool CVideoSubFinderApp::OnInit()
 	if (g_pParser->Found("o", &wxStr))
 	{
 		wxStr.Replace("\\", "/");
-		g_work_dir = wxStr;		
+		g_work_dir = wxStr;
 	}
 
 	wxFileName::Mkdir(g_work_dir + "/RGBImages", wxS_DIR_DEFAULT, wxPATH_MKDIR_FULL);
@@ -310,7 +310,7 @@ bool CVideoSubFinderApp::OnInit()
 	{
 		wxCommandEvent bn_event(wxEVT_COMMAND_BUTTON_CLICKED, ID_BTN_CLEAR);
 		m_pMainWnd->m_pPanel->m_pSHPanel->OnBnClickedClear(bn_event);
-	}	
+	}
 
 	if (wxCMD_SWITCH_ON == g_pParser->FoundSwitch("r"))
 	{
@@ -337,7 +337,7 @@ bool CVideoSubFinderApp::OnInit()
 					m_pMainWnd->m_EndTime = GetVideoTime(wxStr);
 				}
 
-				double double_val;				
+				double double_val;
 
 				if (g_pParser->Found("be", &double_val))
 				{
@@ -408,7 +408,7 @@ bool CVideoSubFinderApp::OnInit()
 	}
 
 	if (wxCMD_SWITCH_ON == g_pParser->FoundSwitch("ccti"))
-	{		
+	{
 		wxCommandEvent bn_event(wxEVT_COMMAND_BUTTON_CLICKED, ID_BTN_CCTI);
 		m_pMainWnd->m_blnNoGUI = true;
 		SaveToReportLog("setting: m_pMainWnd->m_blnNoGUI = true\n");
@@ -455,7 +455,7 @@ bool CVideoSubFinderApp::OnInit()
 	}
 
 	if (wxCMD_SWITCH_ON == g_pParser->FoundSwitch("h"))
-	{		
+	{
 		#ifdef WIN32
 				HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
 				DWORD fileType = GetFileType(out);
