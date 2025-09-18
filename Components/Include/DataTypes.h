@@ -17,9 +17,9 @@
 
 #include <time.h>
 #include <memory.h>
-#include <wx/wx.h>
-#include <wx/wfstream.h>
-#include <wx/txtstrm.h>
+// #include <wx/wx.h>
+// #include <wx/wfstream.h>
+// #include <wx/txtstrm.h>
 #include "opencv2/imgcodecs.hpp"
 #include <condition_variable>
 #include <queue>
