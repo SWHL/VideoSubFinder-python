@@ -1,0 +1,42 @@
+SSAlgorithms:
+  # 是否运行字幕搜索
+  g_RunSubSearch: 0
+
+  # 线程数 (-1 表示自动选择)
+  g_threads: -1
+
+  # 字幕帧长度（单位：帧）
+  g_DL: 6
+
+  # 文本区域占比阈值（认为是字幕的最小比例）
+  g_tp: 0.3
+
+  # 最小文本长度（占图像宽度的比例）
+  g_mtpl: 0.022
+
+  # 视频边缘点拟合直线时的容差（误差比例）
+  g_veple: 0.30
+
+  # ILA 检测点拟合直线时的容差
+  g_ilaple: 0.30
+
+  # 是否使用 ISA 图像进行字幕搜索
+  g_use_ISA_images_for_search_subtitles: true
+
+  # 是否使用 ILA 图像进行字幕搜索
+  g_use_ILA_images_for_search_subtitles: true
+
+  # 是否用滤波后的版本替换原始 ISA 图像
+  g_replace_ISA_by_filtered_version: true
+
+  # 向下扩展的最大检测长度（像素）
+  g_max_dl_down: 20
+
+  # 向上扩展的最大检测长度（像素）
+  g_max_dl_up: 40
+
+  # 视频对比度调节 (1.0 = 不变)
+  g_video_contrast: 1.0
+
+  # 视频伽马值调节 (1.0 = 不变)
+  g_video_gamma: 1.0

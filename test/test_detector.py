@@ -31,7 +31,7 @@ def test_imports():
         return False
 
     try:
-        from subtitle_detector import DetectionConfig, SubtitleDetector
+        from video_sub_finder.subtitle_detector import DetectionConfig, SubtitleDetector
 
         print("✅ 字幕检测器导入成功")
     except ImportError as e:
@@ -46,7 +46,7 @@ def test_basic_functionality():
     print("\n🔍 测试基本功能...")
 
     try:
-        from subtitle_detector import DetectionConfig, SubtitleDetector
+        from video_sub_finder.subtitle_detector import DetectionConfig, SubtitleDetector
 
         # 创建检测器
         config = DetectionConfig()
@@ -120,7 +120,7 @@ def test_detection():
     print("\n🔍 测试字幕检测...")
 
     try:
-        from subtitle_detector import DetectionConfig, SubtitleDetector
+        from video_sub_finder.subtitle_detector import DetectionConfig, SubtitleDetector
 
         # 创建测试视频
         test_video = test_video_creation()
