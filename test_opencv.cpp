@@ -1,14 +1,12 @@
 #include <opencv2/opencv.hpp>
 
 using namespace cv;
-void ImageThreshold(String str) {
+
+int main() {
+  String str = "tmp/1.jpg";
   Mat image = imread(str);
 
-  imshow("test_opencv",image);
-  waitKey(0);
-}
-int main() {
-  String str = "/Users/jiahuawang/projects/VideoSubFinder-python/tmp/1.jpg";
-  ImageThreshold(str);
+  assert(image.rows == 80);
+  std::cout << image.rows << std::endl;
   return 0;
 }
