@@ -11,5 +11,5 @@ include_directories(${OpenCV_INCLUDE_DIRS})
 link_directories(${OpenCV_LIBRARY_DIRS})
 message(${OpenCV_INCLUDE_DIRS})
 
-add_executable(MyProject my_demo.cpp)
+add_executable(MyProject test_opencv.cpp)
 target_link_libraries(MyProject ${OpenCV_LIBRARIES})

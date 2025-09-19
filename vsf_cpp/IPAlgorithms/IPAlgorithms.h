@@ -1,4 +1,4 @@
-                              //IPAlgorithms.h//                                
+                              //IPAlgorithms.h//
 //////////////////////////////////////////////////////////////////////////////////
 //																				//
 // Author:  Simeon Kosnitsky													//
@@ -19,8 +19,6 @@
 #include "SSAlgorithms.h"
 #include "DataTypes.h"
 #include "MyClosedFigure.h"
-#include <wx/string.h>
-#include <wx/wfstream.h>
 #include <fstream>
 #include <execution>
 #include <algorithm>
@@ -40,11 +38,6 @@ extern void     (*g_pViewRGBImage)(simple_buffer<int> &Im, int w, int h);
 extern void     (*g_pViewImage[2])(simple_buffer<int> &Im, int w, int h);
 extern void     (*g_pViewGreyscaleImage[2])(simple_buffer<u8>& ImGR, int w, int h);
 extern void     (*g_pViewBGRImage[2])(simple_buffer<u8>& ImBGR, int w, int h);
-
-extern wxString   g_work_dir;
-extern wxString   g_app_dir;
-extern wxString   g_prev_data_path;
-extern wxString   g_im_save_format;
 
 extern double	g_smthr;  //moderate threshold for scaled image
 extern double	g_mthr;  //moderate threshold
@@ -348,7 +341,7 @@ void BinaryImageToMat(simple_buffer<T>& ImBinary, int w, int h, cv::Mat& res, T 
 template <class T>
 void BinaryImageToMat(simple_buffer<T>& ImBinary, int w, int h, cv::UMat& res, T white = 255);
 
-// ImBinary - 0 or some_color!=0 (like 0 and 1) 
+// ImBinary - 0 or some_color!=0 (like 0 and 1)
 template <class T>
 void BinaryImageToMat(simple_buffer<T>& ImBinary, int w, int h, cv::Mat& res, T white)
 {
@@ -367,7 +360,7 @@ void BinaryImageToMat(simple_buffer<T>& ImBinary, int w, int h, cv::Mat& res, T 
 	}
 }
 
-// ImBinary - 0 or some_color!=0 (like 0 and 1) 
+// ImBinary - 0 or some_color!=0 (like 0 and 1)
 template <class T>
 void BinaryImageToMat(simple_buffer<T>& ImBinary, int w, int h, cv::UMat& res, T white)
 {
@@ -405,7 +398,7 @@ void BinaryMatToImage(cv::Mat& ImBinary, int w, int h, simple_buffer<T>& res, T 
 	}
 }
 
-// ImBinary - 0 or some_color!=0 (like 0 and 1 or 0 and 255) 
+// ImBinary - 0 or some_color!=0 (like 0 and 1 or 0 and 255)
 template <class T>
 void BinaryMatToImage(cv::UMat& ImBinary, int w, int h, simple_buffer<T>& res, T white)
 {
@@ -528,7 +521,7 @@ int GetImageWithInsideFigures(simple_buffer<T>& Im, simple_buffer<T>& ImRes, int
 	CMyClosedFigure* pFigure;
 	int i, j, l, x, y, ii, cnt, N;
 	custom_buffer<CMyClosedFigure> pFigures;
-	simple_buffer<CMyClosedFigure*> ppFigures;	
+	simple_buffer<CMyClosedFigure*> ppFigures;
 
 	GetAllInsideFigures(Im, ImRes, pFigures, ppFigures, N, w, h, white, im_is_white);
 
@@ -559,7 +552,7 @@ int GetImageWithInsideFigures(simple_buffer<T>& Im, simple_buffer<T>& ImRes, int
 						break;
 					}
 				}
-			}			
+			}
 
 			if (found)
 			{
@@ -630,7 +623,7 @@ int FilterImageByPixelColorIsInRange(simple_buffer<T>& ImRes, simple_buffer<u8>*
 			custom_buffer<CMyClosedFigure> pFigures;
 
 			SearchClosedFigures(ImMASK, w, h, (u8)255, pFigures);
-			int N = pFigures.size();						
+			int N = pFigures.size();
 
 			if (N > 0)
 			{
@@ -657,7 +650,7 @@ int FilterImageByPixelColorIsInRange(simple_buffer<T>& ImRes, simple_buffer<u8>*
 			{
 				ImRes.set_values(zero_value, w * h);
 				res = 0;
-			}			
+			}
 		}
 		else
 		{
